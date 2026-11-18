@@ -54,7 +54,7 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            'channels' => explode(',', (string) env('LOG_STACK', 'single')),
+            'channels' => ['daily','stderr','size'],
             'ignore_exceptions' => false,
         ],
 
@@ -133,6 +133,15 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+        'size' => [
+            'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'handler' => Monolog\Handler\RotatingFileHandler::class,
+            'handler_with' => [
+                'filename' => storage_path('logs/size.log'),
+                'maxFiles' => 5,
+            ],
         ],
 
     ],

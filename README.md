@@ -56,3 +56,43 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Comandos de pruebas
+## GET
+```bash
+
+curl -i http://localhost:8000/api/productos
+```
+# POST
+```bash
+curl -i -X POST http://localhost:8000/api/productos \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{
+    "nombre": "Laptop Lenovo",
+    "descripcion": "Laptop Lenovo Core i7, 16GB RAM, 512GB SSD",
+    "precio": 4500.00
+  }'
+
+
+```
+# PUT
+```bash
+curl -i -X PUT http://localhost:8000/api/productos/1 \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{
+    "nombre": "Laptop HP",
+    "descripcion": "Laptop HP Core i7, 16GB RAM, 1TB SSD",
+    "precio": 5200.00
+  }'
+
+
+```
+# DELETE
+```bash
+
+curl -i -X DELETE http://localhost:8000/api/productos/1 \
+  -H "Accept: application/json"
+
+```
