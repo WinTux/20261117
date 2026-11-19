@@ -19,12 +19,12 @@ class PrometheusMiddleware
         $response = $next($request);
         $registry = app(CollectorRegistry::class);
         $counter = $registry->getOrRegisterCounter(
-            'http_requests_total', 'Numero total de peticiones HTTP', ['method', 'endpoint', 'status']
+            'app','http_requests_total', 'Numero total de peticiones HTTP', ['method', 'endpoint', 'status']
         );
         $counter->inc([
-            'method' => $request->getMethod(),
-            'endpoint' => $request->getPathInfo(),
-            'status' => $response->getStatusCode()
+            $request->method(),
+            $request->path(),
+            $response->getStatusCode()
         ]);
         return $response;
     }

@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - redis
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
