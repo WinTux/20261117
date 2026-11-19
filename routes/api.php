@@ -3,7 +3,9 @@
  use Illuminate\Support\Facades\Route;
  use Prometheus\CollectorRegistry;
  use Prometheus\RenderTextFormat;
- Route::apiResource('productos', ProductoController::class);
+ Route::middleware([\App\Http\Middleware\PrometheusMiddleware::class])->group(function () {
+      Route::apiResource('productos', ProductoController::class);
+ });
  Route::get('/metrics', function () {
      $registry = app(CollectorRegistry::class);
      $renderer = new RenderTextFormat();
