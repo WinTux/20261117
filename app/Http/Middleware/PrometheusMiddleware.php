@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Prometheus\CollectorRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class PrometheusMiddleware
 {
@@ -106,7 +108,9 @@ class PrometheusMiddleware
 
             $requestsInProgress->dec([$method, $endpoint]);
         }
-
+        $traceId = (string) Str::uuid();
+        $request->headers->set('X-Trace-Id', $traceId);
+        Log::withContext(['trace_id' => $traceId]);
         return $response;
     }
 }
